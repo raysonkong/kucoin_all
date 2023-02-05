@@ -13,6 +13,32 @@ client = Client(API_KEY, SECRET_KEY)
 ## setup config_cmc.py in the same folder
 ## ==================================##
 
+# ##
+# ## setup config_cmc.py in the same folder
+# ##
+
+# HOW_MANY_COINS = 400
+# EXCHANGES=["BINANCE"]
+
+
+# WANTED_CURRENCIES = ['USDT', 'BUSD']
+
+# ### Notes on Config ### 
+
+
+
+# # # Do not alter below easily
+# GROUP_SIZE = len(EXCHANGES) * 1000
+
+
+
+# API_KEY = 'Your API Key'
+# SECRET_KEY = 'Your Secret Key'
+# URL="https://api.binance.com/api/v3/exchangeinfo"
+# ## end of Config file
+
+
+
 
 
 
