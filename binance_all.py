@@ -13,21 +13,14 @@ client = Client(API_KEY, SECRET_KEY)
 ## setup config_cmc.py in the same folder
 ## ==================================##
 
-# ##
-# ## setup config_cmc.py in the same folder
-# ##
 
 # HOW_MANY_COINS = 400
 # EXCHANGES=["BINANCE"]
 
-
 # WANTED_CURRENCIES = ['USDT', 'BUSD']
 
-# ### Notes on Config ### 
 
-
-
-# # # Do not alter below easily
+# 1000 due to TradingView limit on pairs per txt file
 # GROUP_SIZE = len(EXCHANGES) * 1000
 
 
@@ -37,19 +30,24 @@ client = Client(API_KEY, SECRET_KEY)
 # URL="https://api.binance.com/api/v3/exchangeinfo"
 # ## end of Config file
 
+## ==================================##
+## End of Config
+## ==================================##
 
 
 
-
-
-
+## ==================================##
 #===== Setup Date and Time #======== 
+## ==================================##
 # Date
 generation_date = datetime.datetime.now()
 generation_date = generation_date.strftime("%d_%m_%Y")
 
 
+## ==================================##
 ## ======= Making the Request ========= ####
+## ==================================##
+
 #info = client.get_symbol_info('BNBBTC')
 binance_info = client.get_all_tickers()
 
@@ -68,8 +66,9 @@ for info in binance_info:
 
 #print(symbols)
 
-### ====== Helper Functon====
-## remove UPUSDT and DOWNUSDT ## 
+## ======================================================##
+### ====== Helper Functon: remove UPUSDT and DOWNUSDT  ====
+## ======================================================##
 
 derivatives = ['UPUSDT', 'DOWNUSDT']
 noDerivativeSymbols = []
@@ -86,14 +85,9 @@ removeUnwanted(symbols)
 #print(len(noDerivativeSymbols))
 
 
-
-
-
-
-
-
-##  ========   Helper Function ======== ####
-# Append "Binance:" to each of these trading pairs above
+## ===================================================##
+##  ========   Helper Function: Append "Binance:" to pairs ======== ####
+## =====================================================##
 
 finalSymbols = []
 
@@ -105,10 +99,11 @@ appendExchange(noDerivativeSymbols)
 
 #print(finalSymbols)
 
-
-#================================================
+#================================
+# ====== Helper Function ======== 
 # Group output from last Step
 # to a list containing lists of n 
+#================================
 
 # Group size, in production n=400
 n=GROUP_SIZE
@@ -125,9 +120,10 @@ grouped_pairs = group_into_n(finalSymbols, n)
 
 
 #================================================
-
+# ======== Outputting ======
 # write a function to output each of the group in last
 # to a separate file
+#================================================
 
 
 #def output_to_text_file(nested_grouped_pairs):
