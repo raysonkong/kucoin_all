@@ -3,4 +3,4 @@
 config_cmc.py
 config_lc.py
 config_lc2.py
-config_binance_all.py
+config_kucoin_all.py

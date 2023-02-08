@@ -4,9 +4,9 @@ import pprint
 import datetime
 import time
 import os
-from config_binance_all import *
-from binance.client import Client
-client = Client(API_KEY, SECRET_KEY)
+from config_kucoin_all import *
+from kucoin.client import Client
+client = Client(API_KEY, SECRET_KEY, PASSPHRASE)
 
 
 ## ==================================##
@@ -14,21 +14,7 @@ client = Client(API_KEY, SECRET_KEY)
 ## ==================================##
 
 
-# HOW_MANY_COINS = 400
-# EXCHANGES=["BINANCE"]
 
-# WANTED_CURRENCIES = ['USDT', 'BUSD']
-
-
-# 1000 due to TradingView limit on pairs per txt file
-# GROUP_SIZE = len(EXCHANGES) * 1000
-
-
-
-# API_KEY = 'Your API Key'
-# SECRET_KEY = 'Your Secret Key'
-# URL="https://api.binance.com/api/v3/exchangeinfo"
-# ## end of Config file
 
 ## ==================================##
 ## End of Config
@@ -49,55 +35,36 @@ generation_date = generation_date.strftime("%d_%m_%Y")
 ## ==================================##
 
 #info = client.get_symbol_info('BNBBTC')
-binance_info = client.get_all_tickers()
+allCurrencies = client.get_currencies()
 
 # response
 # [ {'symbol': 'ETHBTC', 'price': '0.07002700'}, .... ] 
 
-#print(binance_info[0])
+#print(allCurrencies)
 
 symbols = []
 
-for info in binance_info:
-    for wantedCurrency in WANTED_CURRENCIES:
-        wantedCurrencyLen = len(wantedCurrency)
-        if info['symbol'][-wantedCurrencyLen:] == wantedCurrency:
-            symbols.append(info['symbol'])
+for coin in allCurrencies:
+    symbols.append(coin['name'])
 
 #print(symbols)
 
-## ======================================================##
-### ====== Helper Functon: remove UPUSDT and DOWNUSDT  ====
-## ======================================================##
-
-derivatives = ['UPUSDT', 'DOWNUSDT']
-noDerivativeSymbols = []
-
-def removeUnwanted(symbols):
-    for symbol in symbols:
-        for derivative in derivatives:
-            if symbol[-6:] != derivative and symbol[-8:] != derivative:
-                noDerivativeSymbols.append(symbol)
-
-removeUnwanted(symbols)
-
-
-#print(len(noDerivativeSymbols))
-
 
 ## ===================================================##
-##  ========   Helper Function: Append "Binance:" to pairs ======== ####
+##  ========   Helper Function: Append "Kucoin:" and  "USDT" to pairs ======== ####
 ## =====================================================##
 
 finalSymbols = []
 
 def appendExchange(symbols):
     for symbol in symbols:
-        finalSymbols.append(EXCHANGES[0] + ":" + symbol)
+        finalSymbols.append(EXCHANGES[0] + ":" + symbol + WANTED_CURRENCIES[0])
 
-appendExchange(noDerivativeSymbols)
+appendExchange(symbols)
 
 #print(finalSymbols)
+
+
 
 #================================
 # ====== Helper Function ======== 
@@ -136,7 +103,7 @@ grouped_pairs = group_into_n(finalSymbols, n)
 # /Users/raysonkong/code/python/webscrapping/scripts_v2/cmc_api_to_tradingview/outputs
 def output_to_text_file(nested_grouped_pairs):
     for idx, group in enumerate(nested_grouped_pairs):
-            filename=f"{os.getcwd()}/Binance_All_{generation_date}_/-1.0 {idx+1}.BINANCE_All_{generation_date}.txt"
+            filename=f"{os.getcwd()}/{EXCHANGES[0]}_All_{generation_date}_/-1.0 {idx+1}.{EXCHANGES[0]}_All_{generation_date}.txt"
             os.makedirs(os.path.dirname(filename), exist_ok=True)
             with open(filename, "w") as f:
                 for pair in group:
