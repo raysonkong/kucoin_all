@@ -13,6 +13,23 @@ client = Client(API_KEY, SECRET_KEY, PASSPHRASE)
 ## setup config_cmc.py in the same folder
 ## ==================================##
 
+HOW_MANY_COINS = 400
+
+EXCHANGES=["KUCOIN"] # can only have one exchange .....haha
+
+WANTED_CURRENCIES = ['USDT'] ## can only have one ....for now
+
+# # Do not alter below easily
+GROUP_SIZE = len(EXCHANGES) * 1000
+
+
+API_KEY = 'Your Key'
+SECRET_KEY = 'Your Key'
+PASSPHRASE = 'Your PassPhrase'
+URL="https://api.binance.com/api/v3/exchangeinfo"
+## end of Config file
+
+
 
 
 
