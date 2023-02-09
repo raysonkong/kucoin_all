@@ -1,6 +1,3 @@
 */
 .DS_Store
-config_cmc.py
-config_lc.py
-config_lc2.py
-config_kucoin_all.py
+config.py

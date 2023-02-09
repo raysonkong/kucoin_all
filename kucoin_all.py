@@ -4,7 +4,7 @@ import pprint
 import datetime
 import time
 import os
-from config_kucoin_all import *
+from config import *
 from kucoin.client import Client
 client = Client(API_KEY, SECRET_KEY, PASSPHRASE)
 
@@ -12,6 +12,9 @@ client = Client(API_KEY, SECRET_KEY, PASSPHRASE)
 ## ==================================##
 ## setup config_cmc.py in the same folder
 ## ==================================##
+
+
+
 
 HOW_MANY_COINS = 400
 
@@ -26,7 +29,6 @@ GROUP_SIZE = len(EXCHANGES) * 1000
 API_KEY = 'Your Key'
 SECRET_KEY = 'Your Key'
 PASSPHRASE = 'Your PassPhrase'
-URL="https://api.binance.com/api/v3/exchangeinfo"
 ## end of Config file
 
 
@@ -120,7 +122,7 @@ grouped_pairs = group_into_n(finalSymbols, n)
 # /Users/raysonkong/code/python/webscrapping/scripts_v2/cmc_api_to_tradingview/outputs
 def output_to_text_file(nested_grouped_pairs):
     for idx, group in enumerate(nested_grouped_pairs):
-            filename=f"{os.getcwd()}/{EXCHANGES[0]}_All_{generation_date}_/-1.0 {idx+1}.{EXCHANGES[0]}_All_{generation_date}.txt"
+            filename=f"{os.getcwd()}/{EXCHANGES[0]}_All_{generation_date}/-1.0 {idx+1}.{EXCHANGES[0]}_All_{generation_date}.txt"
             os.makedirs(os.path.dirname(filename), exist_ok=True)
             with open(filename, "w") as f:
                 for pair in group:
@@ -134,7 +136,7 @@ def run_srapper():
     output_to_text_file(grouped_pairs)
 
 
-    print("== Binance Scrapping Completed ==")
+    print("== Kucoin Scrapping Completed ==")
     print('\n')
     #print("======================================================")
 if __name__ =='__main__':
