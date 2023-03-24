@@ -51,10 +51,11 @@ generation_date = generation_date.strftime("%d_%m_%Y")
 #info = client.get_symbol_info('BNBBTC')
 allCurrencies = client.get_currencies()
 
+
 # response
 # [ {'symbol': 'ETHBTC', 'price': '0.07002700'}, .... ] 
 
-#print(allCurrencies)
+#print(allCurrencies[0])
 
 symbols = []
 
@@ -117,7 +118,7 @@ grouped_pairs = group_into_n(finalSymbols, n)
 # /Users/raysonkong/code/python/webscrapping/scripts_v2/cmc_api_to_tradingview/outputs
 def output_to_text_file(nested_grouped_pairs):
     for idx, group in enumerate(nested_grouped_pairs):
-            filename=f"{os.getcwd()}/{EXCHANGES[0]}_All_{generation_date}/-1.0 {idx+1}.{EXCHANGES[0]}_All_{generation_date}.txt"
+            filename=f"{os.getcwd()}/{EXCHANGES[0]}_All_{generation_date}/-1.0 {idx+1}.{EXCHANGES[0]}_All_{generation_date}_total_{len(finalSymbols)}.txt"
             os.makedirs(os.path.dirname(filename), exist_ok=True)
             with open(filename, "w") as f:
                 for pair in group:
@@ -127,11 +128,10 @@ def output_to_text_file(nested_grouped_pairs):
 
 
 def run_srapper():
-    os.system('clear')
     output_to_text_file(grouped_pairs)
 
 
-    print("== Kucoin Scrapping Completed ==")
+    print("== Kucoin All Tickers Retrieved ==")
     print('\n')
     #print("======================================================")
 if __name__ =='__main__':
